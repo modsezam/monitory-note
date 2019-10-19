@@ -8,6 +8,7 @@ import com.github.modsezam.monitorynote.repository.CompanyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.Optional;
 
 @Service
@@ -24,8 +25,13 @@ public class CompanyService {
         return companyRepository.save(company).getId();
     }
 
-    public Optional<Company> getById (Long id) {
-        return companyRepository.findById(id);
+    public Company getById (Long id) {
+        Optional<Company> companyOptional = companyRepository.findById(id);
+        if (companyOptional.isPresent()) {
+            return companyOptional.get();
+        } else {
+            throw new EntityNotFoundException("company, id: " + id);
+        }
     }
 
 }

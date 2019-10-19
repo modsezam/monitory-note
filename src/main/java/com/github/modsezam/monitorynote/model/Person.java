@@ -21,7 +21,7 @@ public class Person {
     private String idDocument;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    private Company commpany;
+    private Company company;
 
 //    @ToString.Exclude
 //    @EqualsAndHashCode.Exclude

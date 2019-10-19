@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <th:block th:replace="fragments :: styleLinks" th:remove="tag"></th:block>
+    <meta charset="UTF-8">
+    <title>Preson form</title>
+</head>
+<body>
+
+<th:block th:replace="fragments :: navigator" th:remove="tag"></th:block>
+
+<div class="container">
+
+
+    <div class="row col-md-12 py-5 text-center top-distance">
+        <h2>Person form</h2>
+    </div>
+
+
+    <form class="form-group" th:action="@{/person/save}" th:method="post" th:object="${person}">
+        <input type="hidden" th:value="${person.id}" th:field="${person.id}">
+        <div class="row">
+            <div class="col-md-6">
+                <label for="person-firstname">First name:</label>
+                <input id="person-firstname" th:value="${person.firstname}" th:field="${person.firstname}"
+                       class="form-control">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <label for="person-lastname">Last name:</label>
+                <input id="person-lastname" th:value="${person.lastname}" th:field="${person.lastname}"
+                       class="form-control">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <label for="person-iddocument">Id document</label>
+                <input id="person-iddocument" th:value="${person.idDocument}" th:field="${person.idDocument}"
+                       class="form-control">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <label for="person-company" th:hidden="${person.company != null}">Company:</label>
+                <input id="person-company" th:hidden="${person.company != null}" th:field="${person.company}" th:value="${person.company}"
+                       class="form-control">
+            </div>
+        </div>
+        <div class="row col-md-6 justify-content-center">
+            <div class="col-md-3">
+                <button type="reset" class="btn btn-outline-primary">Reset</button>
+            </div>
+            <div class="col-md-3 justify-content-center">
+                <button type="submit" class="btn btn-outline-primary">Submit</button>
+            </div>
+        </div>
+    </form>
+
+
+</div>
+
+
+<th:block th:replace="fragments :: footer" th:remove="tag"></th:block>
+<th:block th:replace="fragments :: jsScripts" th:remove="tag"></th:block>
+
+</body>
+</html>

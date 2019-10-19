@@ -1,9 +1,7 @@
 package com.github.modsezam.monitorynote.component;
 
-import com.github.modsezam.monitorynote.model.Account;
-import com.github.modsezam.monitorynote.model.AccountRole;
-import com.github.modsezam.monitorynote.repository.AccountRepository;
-import com.github.modsezam.monitorynote.repository.AccountRoleRepository;
+import com.github.modsezam.monitorynote.model.*;
+import com.github.modsezam.monitorynote.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationListener;
@@ -23,6 +21,12 @@ public class DataInitializer implements ApplicationListener<ContextRefreshedEven
     private AccountRoleRepository accountRoleRepository;
     @Autowired
     private PasswordEncoder passwordEncoder;
+    @Autowired
+    private PersonRepository personRepository;
+    @Autowired
+    private CarRepository carRepository;
+    @Autowired
+    private CompanyRepository companyRepository;
 
     @Value("${default.roles}")
     private String[] defaultRoles;
@@ -39,7 +43,59 @@ public class DataInitializer implements ApplicationListener<ContextRefreshedEven
 
         addUser("admin", defaultAdminPassword, "USER", "ADMIN");
         addUser("user", "user", "USER");
+        addCompany("companyName", "company address 12/20", "City", "00-100", "Country");
+        addCar("GD88880", "Toyota", "Avensis");
+        addPerson("Donald", "Trump", "ASS1011002");
+        addCompanyToPerson();
+        addCompanyToCar();
     }
+
+    private void addCompanyToCar () {
+        Car car = carRepository.findAll().get(0);
+        Company company = companyRepository.findAll().get(0);
+        car.setCompany(company);
+        carRepository.save(car);
+    }
+
+    private void addCompanyToPerson () {
+        Company company = companyRepository.findAll().get(0);
+        Person person = personRepository.findAll().get(0);
+        person.setCompany(company);
+        personRepository.save(person);
+    }
+
+    private void addPerson (String firstname, String lastname, String idDocument) {
+        if (!personRepository.existsByIdDocument(idDocument)) {
+            Person person = new Person();
+            person.setFirstname(firstname);
+            person.setLastname(lastname);
+            person.setIdDocument(idDocument);
+            personRepository.save(person);
+        }
+    }
+
+    private void addCar (String registrationNr, String mark, String model) {
+        if (!carRepository.existsByRegistrationNr(registrationNr)) {
+            Car car = new Car();
+            car.setRegistrationNr(registrationNr);
+            car.setMark(mark);
+            car.setModel(model);
+            carRepository.save(car);
+        }
+    }
+
+    private void addCompany (String name, String address, String city, String postCode, String country) {
+        if (!companyRepository.existsByName(name)) {
+            Company company = new Company();
+            company.setName(name);
+            company.setAddress(address);
+            company.setCity(city);
+            company.setPostCode(postCode);
+            company.setCountry(country);
+            companyRepository.save(company);
+        }
+    }
+
 
     private void addUser(String username, String password, String... roles) {
         if (!accountRepository.existsByUsername(username)) {

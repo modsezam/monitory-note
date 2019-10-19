@@ -23,8 +23,13 @@ public class PersonService {
         return personRepository.save(person).getId();
     }
 
-    public Optional<Person> getById (Long id) {
-        return personRepository.findById(id);
+    public Person getById (Long id) {
+        Optional<Person> personOptional = personRepository.findById(id);
+        if (personOptional.isPresent()) {
+            return personOptional.get();
+        } else {
+            throw new EntityNotFoundException("preson, id: " + id);
+        }
     }
 
 
