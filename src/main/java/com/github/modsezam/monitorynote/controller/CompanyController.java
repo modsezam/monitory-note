@@ -11,7 +11,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.List;
 
 @Controller
 @RequestMapping (path = "/company/")
@@ -27,6 +30,35 @@ public class CompanyController {
         this.carService = carService;
         this.personService = personService;
     }
+
+
+    @GetMapping ("/list")
+    public String listCompanies (Model model) {
+        List<Company> companies = companyService.findAll();
+        model.addAttribute("companies", companies);
+        return "company-list";
+    }
+
+    @GetMapping ("/addCompany")
+    public String addCompany (Model model, Company company) {
+        model.addAttribute("company", company);
+        return "company-create";
+    }
+
+    @PostMapping ("/addCompany")
+    public String addCompany (Company company) {
+        companyService.save(company);
+        return "redirect:/company/list";
+    }
+
+    @GetMapping ("/edit/{idCompany}")
+    public String editCompany (Model model,
+                               @PathVariable (name = "idCompany") Long idCompany) {
+        Company company = companyService.getById(idCompany);
+        model.addAttribute("company", company);
+        return "company-create";
+    }
+
 
     @GetMapping ("/details/{id}")
     public String details (Model model,

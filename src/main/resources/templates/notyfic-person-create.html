@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <th:block th:replace="fragments :: styleLinks" th:remove="tag"></th:block>
+    <meta charset="UTF-8">
+    <title>Notify form</title>
+</head>
+<body>
+
+<th:block th:replace="fragments :: navigator" th:remove="tag"></th:block>
+
+<div class="container">
+
+
+    <div class="row col-md-12 py-5 text-center top-distance">
+        <h2>Notify form for person: <span th:text="${notyfic.person.lastname}"></span> </h2>
+    </div>
+
+
+    <form class="form-group" th:action="@{/notyficPerson/save}" th:method="post" th:object="${notyfic}">
+        <input type="hidden" th:value="${notyfic.id}" th:field="${notyfic.id}">
+        <input type="hidden" th:value="${notyfic.person}" th:field="${notyfic.person}">
+        <div class="row">
+            <div class="col-md-6">
+                <label for="start-date">Start date:</label>
+                <input type="datetime-local" id="start-date" th:value="${notyfic.startDateTime}" th:field="${notyfic.startDateTime}">
+            </div>
+            <div class="col-md-6">
+                <label for="end-date">End date:</label>
+                <input type="datetime-local" id="end-date" th:value="${notyfic.endDateTime}" th:field="${notyfic.endDateTime}">
+            </div>
+        </div>
+
+        <div class="row col-md-6 justify-content-center">
+            <div class="col-md-3">
+                <button type="reset" class="btn btn-outline-primary">Reset</button>
+            </div>
+            <div class="col-md-3 justify-content-center">
+                <button type="submit" class="btn btn-outline-primary">Submit</button>
+            </div>
+        </div>
+    </form>
+
+
+</div>
+
+
+<th:block th:replace="fragments :: footer" th:remove="tag"></th:block>
+<th:block th:replace="fragments :: jsScripts" th:remove="tag"></th:block>
+
+</body>
+</html>

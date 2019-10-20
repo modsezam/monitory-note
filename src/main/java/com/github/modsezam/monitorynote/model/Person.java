@@ -3,6 +3,7 @@ package com.github.modsezam.monitorynote.model;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Data
@@ -23,9 +24,9 @@ public class Person {
     @ManyToOne(fetch = FetchType.EAGER)
     private Company company;
 
-//    @ToString.Exclude
-//    @EqualsAndHashCode.Exclude
-//    @OneToMany (mappedBy = "person", fetch = FetchType.EAGER)
-//    private Set<NotyficPerson> notifics;
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    @OneToMany (mappedBy = "person", fetch = FetchType.EAGER)
+    private Set<NotyficPerson> notyfics;
 
 }

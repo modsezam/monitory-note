@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <th:block th:replace="fragments :: styleLinks" th:remove="tag"></th:block>
+    <meta charset="UTF-8">
+    <title>Company create</title>
+</head>
+<body>
+
+<th:block th:replace="fragments :: navigator" th:remove="tag"></th:block>
+
+<div class="container">
+
+
+    <div class="row col-md-12 py-5 text-center top-distance">
+        <h2>Company: <span th:text="${company.name}"></span></h2>
+    </div>
+
+
+    <form class="form-group" th:action="'/company/addCompany'" th:method="post" th:object="${company}">
+        <input type="hidden" th:field="${company.id}" th:value="${company.id}">
+
+        <div class="row">
+            <div class="col-md-12">
+                <label for="company-name">Name:</label>
+                <input id="company-name" th:value="${company.name}" th:field="${company.name}" class="form-control">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <label for="company-address">Address:</label>
+                <input id="company-address" th:value="${company.address}" th:field="${company.address}" class="form-control">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4">
+                <label for="company-city">City:</label>
+                <input id="company-city" th:value="${company.city}" th:field="${company.city}" class="form-control">
+            </div>
+            <div class="col-md-4">
+                <label for="company-postcode">Post code:</label>
+                <input id="company-postcode" th:value="${company.postCode}" th:field="${company.postCode}" class="form-control">
+            </div>
+            <div class="col-md-4">
+                <label for="company-country">Country:</label>
+                <input id="company-country" th:value="${company.country}" th:field="${company.country}" class="form-control">
+            </div>
+        </div>
+        <div class="row col-md-12 justify-content-center">
+            <div class="col-md-6">
+                <button type="reset" class="btn btn-outline-primary">Reset</button>
+            </div>
+            <div class="col-md-6 justify-content-center">
+                <button type="submit" class="btn btn-outline-primary">Submit</button>
+            </div>
+        </div>
+    </form>
+
+
+
+
+
+</div>
+
+
+<th:block th:replace="fragments :: footer" th:remove="tag"></th:block>
+<th:block th:replace="fragments :: jsScripts" th:remove="tag"></th:block>
+
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <th:block th:replace="fragments :: styleLinks" th:remove="tag"></th:block>
+    <meta charset="UTF-8">
+    <title>Company details</title>
+</head>
+<body>
+
+<th:block th:replace="fragments :: navigator" th:remove="tag"></th:block>
+
+<div class="container">
+
+
+    <div class="row col-md-12 py-5 text-center top-distance">
+        <h2>Companies</span></h2>
+    </div>
+
+    <div class="row top-distance">
+
+        <div class="col-md-2">
+            <a th:href="'/company/addCompany'">
+                <button type="button" class="btn btn-outline-primary btn-sm">Add company</button>
+            </a>
+        </div>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-striped table-sm">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <!--<th>Address</th>-->
+                <!--<th>Post code</th>-->
+                <!--<th>City</th>-->
+                <th>Country</th>
+                <th>Edit</th>
+                <th>Details</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="company : ${companies}">
+                <td th:text="${company.id}"></td>
+                <td th:text="${company.name}"></td>
+                <!--<td th:text="${company.address}"></td>-->
+                <!--<td th:text="${company.postCode}"></td>-->
+                <!--<td th:text="${company.city}"></td>-->
+                <td th:text="${company.country}"></td>
+                <td>
+                    <a th:href="'/company/edit/' + ${company.id}">
+                        <button type="button" class="btn btn-outline-primary btn-sm">Edit</button>
+                    </a>
+                </td>
+                <td>
+                    <a th:href="'/company/details/' + ${company.id}">
+                        <button type="button" class="btn btn-outline-primary btn-sm">Details</button>
+                    </a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+</div>
+
+
+<th:block th:replace="fragments :: footer" th:remove="tag"></th:block>
+<th:block th:replace="fragments :: jsScripts" th:remove="tag"></th:block>
+
+</body>
+</html>
