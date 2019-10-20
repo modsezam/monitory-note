@@ -42,7 +42,7 @@ public class NotyficPersonController {
     }
 
     @GetMapping ("/edit/{notyficId}")
-    public String editPerson (Model model,
+    public String editNotyficPerson (Model model,
                               @PathVariable (name = "notyficId") Long notyficId) {
         NotyficPerson notyfic = notyficPersonService.getById(notyficId);
         model.addAttribute("notyfic", notyfic);

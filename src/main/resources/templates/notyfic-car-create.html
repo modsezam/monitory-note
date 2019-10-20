@@ -13,26 +13,22 @@
 
 
     <div class="row col-md-12 py-5 text-center top-distance">
-        <h2>Notify form for person: <span
-                th:text="${notyfic.person.firstname} + ' ' + ${notyfic.person.lastname}  "></span></h2>
+        <h2>Notify form for car: <span th:text="${notyfic.car.registrationNr}"></span> </h2>
     </div>
 
 
-    <form class="form-group" th:action="@{/notyficPerson/save}" th:method="post" th:object="${notyfic}">
+    <form class="form-group" th:action="@{/notyficCar/save}" th:method="post" th:object="${notyfic}">
         <input type="hidden" th:value="${notyfic.id}" th:field="${notyfic.id}">
-        <input type="hidden" th:value="${notyfic.person}" th:field="${notyfic.person}">
+        <input type="hidden" th:value="${notyfic.car}" th:field="${notyfic.car}">
         <input type="hidden" th:value="${notyfic.dateTimeCreated}" th:field="${notyfic.dateTimeCreated}">
-
         <div class="row">
             <div class="col-md-6">
                 <label for="start-date">Start date:</label>
-                <input type="datetime-local" id="start-date" class="form-control" th:value="${notyfic.startDateTime}"
-                       th:field="${notyfic.startDateTime}">
+                <input type="datetime-local" id="start-date" class="form-control" th:value="${notyfic.startDateTime}" th:field="${notyfic.startDateTime}">
             </div>
             <div class="col-md-6">
                 <label for="end-date">End date:</label>
-                <input type="datetime-local" id="end-date" class="form-control" th:value="${notyfic.endDateTime}"
-                       th:field="${notyfic.endDateTime}">
+                <input type="datetime-local" id="end-date" class="form-control" th:value="${notyfic.endDateTime}" th:field="${notyfic.endDateTime}">
             </div>
         </div>
 

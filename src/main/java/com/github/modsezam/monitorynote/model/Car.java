@@ -1,10 +1,9 @@
 package com.github.modsezam.monitorynote.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Data
@@ -24,4 +23,9 @@ public class Car {
 
     @ManyToOne (fetch = FetchType.EAGER)
     private Company company;
+
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    @OneToMany (mappedBy = "car", fetch = FetchType.EAGER)
+    private Set<NotyficCar> notyfics;
 }
