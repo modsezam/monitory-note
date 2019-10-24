@@ -5,6 +5,7 @@ import com.github.modsezam.monitorynote.model.Person;
 import com.github.modsezam.monitorynote.service.CarService;
 import com.github.modsezam.monitorynote.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,12 +24,14 @@ public class CarController {
         this.carService = carService;
     }
 
+    @PreAuthorize(value = "hasRole('ADMIN') or hasRole('MANAGER') or hasRole('USER')")
     @PostMapping("/save")
     public String createCar (Car car) {
         carService.save(car);
         return "redirect:/company/details/"+car.getCompany().getId();
     }
 
+    @PreAuthorize(value = "hasRole('ADMIN') or hasRole('MANAGER') or hasRole('USER')")
     @GetMapping ("/edit/{carId}")
     public String editCar (Model model,
                               @PathVariable (name = "carId") Long carId) {

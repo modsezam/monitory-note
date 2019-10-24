@@ -43,6 +43,7 @@ public class DataInitializer implements ApplicationListener<ContextRefreshedEven
 
         addUser("admin", defaultAdminPassword, "USER", "ADMIN");
         addUser("user", "user", "USER");
+        addUser("manager", "manager", "MANAGER");
         addCompany("companyName", "company address 12/20", "City", "00-100", "Country");
         addCar("GD88880", "Toyota", "Avensis");
         addPerson("Donald", "Trump", "ASS1011002");

@@ -13,7 +13,7 @@
 
 
     <div class="row col-md-12 py-5 text-center top-distance">
-        <h2>Notify form for car: <span th:text="${notyfic.car.registrationNr}"></span> </h2>
+        <h2>Notify form for car: <span th:text="${notyfic.car.registrationNr}"></span></h2>
     </div>
 
 
@@ -24,11 +24,13 @@
         <div class="row">
             <div class="col-md-6">
                 <label for="start-date">Start date:</label>
-                <input type="datetime-local" id="start-date" class="form-control" th:value="${notyfic.startDateTime}" th:field="${notyfic.startDateTime}">
+                <input type="datetime-local" id="start-date" class="form-control" th:value="${notyfic.startDateTime}"
+                       th:field="${notyfic.startDateTime}">
             </div>
             <div class="col-md-6">
                 <label for="end-date">End date:</label>
-                <input type="datetime-local" id="end-date" class="form-control" th:value="${notyfic.endDateTime}" th:field="${notyfic.endDateTime}">
+                <input type="datetime-local" id="end-date" class="form-control" th:value="${notyfic.endDateTime}"
+                       th:field="${notyfic.endDateTime}">
             </div>
         </div>
 
@@ -42,6 +44,11 @@
         </div>
     </form>
 
+    <th:block th:if="${errorMessage != null}">
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <strong>Holy guacamole! </strong> <span th:text="${errorMessage}"></span>
+        </div>
+    </th:block>
 
 </div>
 

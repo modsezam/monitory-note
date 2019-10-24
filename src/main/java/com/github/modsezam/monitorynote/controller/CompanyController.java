@@ -7,6 +7,7 @@ import com.github.modsezam.monitorynote.service.CarService;
 import com.github.modsezam.monitorynote.service.CompanyService;
 import com.github.modsezam.monitorynote.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,6 +33,7 @@ public class CompanyController {
     }
 
 
+
     @GetMapping ("/list")
     public String listCompanies (Model model) {
         List<Company> companies = companyService.findAll();
@@ -39,18 +41,21 @@ public class CompanyController {
         return "company-list";
     }
 
+    @PreAuthorize(value = "hasRole('ADMIN') or hasRole('MANAGER') or hasRole('USER')")
     @GetMapping ("/addCompany")
     public String addCompany (Model model, Company company) {
         model.addAttribute("company", company);
         return "company-create";
     }
 
+    @PreAuthorize(value = "hasRole('ADMIN') or hasRole('MANAGER') or hasRole('USER')")
     @PostMapping ("/addCompany")
     public String addCompany (Company company) {
         companyService.save(company);
         return "redirect:/company/list";
     }
 
+    @PreAuthorize(value = "hasRole('ADMIN') or hasRole('MANAGER') or hasRole('USER')")
     @GetMapping ("/edit/{idCompany}")
     public String editCompany (Model model,
                                @PathVariable (name = "idCompany") Long idCompany) {
@@ -68,6 +73,7 @@ public class CompanyController {
         return "company-details";
     }
 
+    @PreAuthorize(value = "hasRole('ADMIN') or hasRole('MANAGER') or hasRole('USER')")
     @GetMapping ("/addPerson/{companyId}")
     public String createPersonInCompany (Model model,
                                          Person person,
@@ -77,6 +83,7 @@ public class CompanyController {
         return "person-create";
     }
 
+    @PreAuthorize(value = "hasRole('ADMIN') or hasRole('MANAGER') or hasRole('USER')")
     @GetMapping ("/addCar/{companyId}")
     public String createCarInCompany (Model model,
                                          Car car,

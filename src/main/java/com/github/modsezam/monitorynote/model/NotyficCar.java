@@ -1,8 +1,6 @@
 package com.github.modsezam.monitorynote.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -30,4 +28,6 @@ public class NotyficCar {
 
     @ManyToOne (fetch = FetchType.EAGER)
     private Car car;
+
+    private boolean isApproved;
 }

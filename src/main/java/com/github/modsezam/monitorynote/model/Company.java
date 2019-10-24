@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -31,10 +32,12 @@ public class Company {
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     @OneToMany (mappedBy = "company", fetch = FetchType.EAGER)
-    private Set<Person> persons;
+    @OrderBy("id")
+    private Set<Person> persons = new LinkedHashSet<>();
 
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     @OneToMany (mappedBy = "company", fetch = FetchType.EAGER)
-    private Set<Car> cars;
+    @OrderBy ("id")
+    private Set<Car> cars = new LinkedHashSet<>();
 }

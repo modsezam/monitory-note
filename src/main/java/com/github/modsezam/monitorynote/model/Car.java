@@ -3,6 +3,8 @@ package com.github.modsezam.monitorynote.model;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -27,5 +29,9 @@ public class Car {
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     @OneToMany (mappedBy = "car", fetch = FetchType.EAGER)
-    private Set<NotyficCar> notyfics;
+    @OrderBy ("startDateTime")
+    private Set<NotyficCar> notyfics = new LinkedHashSet<>();
+
+
+
 }
