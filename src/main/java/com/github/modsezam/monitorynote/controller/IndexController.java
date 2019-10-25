@@ -26,8 +26,12 @@ public class IndexController {
 
     @GetMapping("/")
     public String getIndexPage(Model model, Principal principal) {
-        model.addAttribute("myName", myName);
-//        model.addAttribute("loggedInUser", principal.getName());
+        if (principal != null) {
+            model.addAttribute("myName", principal.getName());
+        }
+
+
+
         return "index";
     }
 

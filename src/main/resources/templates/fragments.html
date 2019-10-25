@@ -11,18 +11,17 @@
 <body>
 <th:block th:fragment="navigator">
     <header>
-        <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-            <a class="navbar-brand" th:href="@{/}">Security Template</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
-                    aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+
+        <nav class="navbar navbar-expand-md navbar-dark bg-primary">
+
+            <a class="navbar-brand" th:href="@{/}"><img  src="http://localhost:8080/images/logomenu.png" width="40" height="51" ></a>
+
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <ul class="navbar-nav mr-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/whenLoggedIn}">Logged
-                            in</a>
-                    </li>
+                    <!--<li class="nav-item">-->
+                        <!--<a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/whenLoggedIn}">Logged-->
+                            <!--in</a>-->
+                    <!--</li>-->
                     <li class="nav-item">
                         <a class="nav-link" sec:authorize="hasRole('ADMIN')" th:href="@{/admin/account/list}">User
                             list</a>
@@ -31,6 +30,7 @@
                         <a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/company/list}">Companies</a>
                     </li>
                 </ul>
+
                 <div class="mt-2 mt-md-0">
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item">
@@ -43,11 +43,16 @@
                             <a class="nav-link" sec:authorize="isAuthenticated() && hasRole('ADMIN')"
                                th:href="@{/register}">Register</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" th:href="@{/search}">Search</a>
-                        </li>
                     </ul>
                 </div>
+
+                <form class="form-inline my-2 my-lg-0" th:action="@{/search}" th:method="post">
+                    <input class="form-control mr-sm-2" th:name="input" type="search"
+                           placeholder="Search">
+                    <button class="btn btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
+                </form>
+
+
             </div>
         </nav>
     </header>

@@ -7,10 +7,18 @@
 </head>
 <body>
 <th:block th:replace="fragments :: navigator" th:remove="tag"></th:block>
-<div class="content-container">
-    <h1 th:text="${myName}"></h1>
-    <h1 th:if="${loggedInUser == null}">Hello anonymous</h1>
-    <h1 th:if="${loggedInUser != null}">Hello <span th:text="${loggedInUser}"></span></h1>
+<div class="container">
+
+    <div class="row col-md-12 py-5 text-center top-distance justify-content-center">
+        <!--<div class="row col-md-12 justify-content-center">-->
+            <!--<h1>Main page</h1>-->
+        <!--</div>-->
+        <div class="row col-md-12 justify-content-center">
+            <h1 sec:authorize="!isAuthenticated()">Hello anonymous</h1>
+            <h1 sec:authorize="isAuthenticated()">Hello <span th:text="${myName}"></span></h1>
+        </div>
+    </div>
+
 </div>
 
 <th:block th:replace="fragments :: footer" th:remove="tag"></th:block>
