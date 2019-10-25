@@ -34,7 +34,7 @@ public class PersonService {
     }
 
 
-    public List<Person> search(String input) {
-        return personRepository.findAllByFirstnameIsLike(input);
+    public List<Person> searchByNameAndLastname (String input) {
+        return personRepository.findAllByFirstnameIsLikeOrLastnameIsLike(input, input);
     }
 }

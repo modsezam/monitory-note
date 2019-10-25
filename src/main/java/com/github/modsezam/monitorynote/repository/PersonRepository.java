@@ -11,5 +11,6 @@ public interface PersonRepository extends JpaRepository <Person, Long> {
     boolean existsByIdDocument (String idDocument);
 
 
-    List<Person> findAllByFirstnameIsLike (String input);
+    List<Person> findAllByFirstnameIsLikeOrLastnameIsLike (String firstname, String lastname);
+
 }

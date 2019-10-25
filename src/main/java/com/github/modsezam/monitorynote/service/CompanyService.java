@@ -38,4 +38,8 @@ public class CompanyService {
     public List<Company> findAll() {
         return companyRepository.findAll();
     }
+
+    public List<Company> search(String input) {
+        return companyRepository.findAllByNameIsLike(input);
+    }
 }

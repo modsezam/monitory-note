@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -32,6 +33,10 @@ public class CarService {
         } else {
             throw new EntityNotFoundException("car, id: " + id);
         }
+    }
+
+    public List<Car> getCarsByRegNumberOrMarkOrModel (String regNo, String mark, String model) {
+        return carRepository.findAllByRegistrationNrIsLikeOrMarkIsLikeOrModelIsLike(regNo, mark, model);
     }
 
 }

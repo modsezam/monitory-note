@@ -21,7 +21,7 @@
         <div class="row">
             <div class="col-md-6">
                 <label for="searching">Type in:</label>
-                <input id="searching" th:name="input" class="form-control">
+                <input id="searching" th:name="input" th:value="${input}" class="form-control">
             </div>
         </div>
 
@@ -34,6 +34,13 @@
             </div>
         </div>
     </form>
+
+
+    <th:block th:if="${errorMessage != null}">
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <strong>Holy guacamole! </strong> <span th:text="${errorMessage}"></span>
+        </div>
+    </th:block>
 
 
 </div>

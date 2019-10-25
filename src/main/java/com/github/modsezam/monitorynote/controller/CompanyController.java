@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -70,6 +71,11 @@ public class CompanyController {
                            @PathVariable (name = "id") Long id) {
         Company company = companyService.getById(id);
         model.addAttribute("company", company);
+
+        model.addAttribute("personsSearched", new ArrayList<>());
+        model.addAttribute("carsSearched", new ArrayList<>());
+        model.addAttribute("companiesSearched", new ArrayList<>());
+
         return "company-details";
     }
 
