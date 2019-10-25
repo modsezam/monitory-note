@@ -43,6 +43,9 @@
                             <a class="nav-link" sec:authorize="isAuthenticated() && hasRole('ADMIN')"
                                th:href="@{/register}">Register</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/search}">Search</a>
+                        </li>
                     </ul>
                 </div>
             </div>
