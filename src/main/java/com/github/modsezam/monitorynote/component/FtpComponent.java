@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -27,27 +27,45 @@ public class FtpComponent {
     @Autowired
     private FTPClient ftpClient;
 
-    public List<FTPFile> listFiles() {
-        FTPFile[] ftpFiles = new FTPFile[0];
+    public List<FTPFile> listOfFiles(String pathName) {
+        List<FTPFile> ftpFileList = new ArrayList<>();
         try {
             connectToFtp(ftpClient);
-            ftpFiles = ftpClient.listFiles("/");
-            ftpClient.disconnect();
+            FTPFile[] ftpFiles = ftpClient.listFiles(pathName);
+            for (FTPFile ftpFile : ftpFiles) {
+                if (!ftpFile.isDirectory()){
+                    ftpFileList.add(ftpFile);
+                }
+            }
         } catch (IOException e) {
             log.error("Error - connect to ftp: {}", e.getMessage());
-            e.printStackTrace();
+        } finally {
+            if (ftpClient != null){
+                try {
+                    ftpClient.disconnect();
+                } catch (IOException e) {
+                    log.error("Error - disconnect from ftp: {}", e.getMessage());
+                }
+            }
         }
-        return Arrays.asList(ftpFiles);
+        return ftpFileList;
     }
 
-    public boolean removeFile(String path){
+    public boolean deleteFile(String pathName, String fileName){
         boolean fileDeleteResult = false;
         try {
             connectToFtp(ftpClient);
-            fileDeleteResult = ftpClient.deleteFile("test.jpg");
-            ftpClient.disconnect();
+            fileDeleteResult = ftpClient.deleteFile(pathName + fileName);
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error("Error - connect add delete file from ftp:", e);
+        } finally {
+            if (ftpClient != null){
+                try {
+                    ftpClient.disconnect();
+                } catch (IOException e) {
+                    log.error("Error - disconnect from ftp:", e);
+                }
+            }
         }
         return fileDeleteResult;
     }
