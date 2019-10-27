@@ -1,7 +1,10 @@
 package com.github.modsezam.monitorynote.controller;
 
+import com.github.modsezam.monitorynote.model.PlateRecognition;
 import com.github.modsezam.monitorynote.model.dto.UserRegistrationRequest;
 import com.github.modsezam.monitorynote.service.AccountService;
+import com.github.modsezam.monitorynote.service.PlateRecognitionService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -13,24 +16,30 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
 import java.security.Principal;
+import java.util.List;
 
+@Slf4j
 @Controller
 @RequestMapping(path = "/")
 public class IndexController {
 
     @Autowired
-    private String myName;
+    private AccountService accountService;
 
     @Autowired
-    private AccountService accountService;
+    private PlateRecognitionService plateRecognitionService;
 
     @GetMapping("/")
     public String getIndexPage(Model model, Principal principal) {
         if (principal != null) {
+
+            List<PlateRecognition> plateRecognitions = plateRecognitionService.listTop10PlateRecognitionOrderByIdDesc();
+
+            plateRecognitionService.fillingCompanyNameAndCarAndPersonsIsValid(plateRecognitions);
+
             model.addAttribute("myName", principal.getName());
+            model.addAttribute("plateRecognitions", plateRecognitions);
         }
-
-
         return "index";
     }
 

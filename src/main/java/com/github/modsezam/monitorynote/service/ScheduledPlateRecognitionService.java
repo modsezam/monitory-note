@@ -34,22 +34,21 @@ public class ScheduledPlateRecognitionService {
                 Optional<PlateRecognition> plateRecognitionOptional = parseToPlateRecognitionComponent.parseFile(ftpFile);
                 if (plateRecognitionOptional.isPresent()){
                     PlateRecognition plateRecognition = plateRecognitionOptional.get();
-                    plateRecognitionService.addPlateNumberToDataBase(plateRecognition);
-                    log.info("Add plate number {} to data base", plateRecognition.getPlateNumber());
-
                     boolean removeFileResult = ftpComponent.deleteFile("/plate_recognition/", ftpFile.getName());
                     if (removeFileResult){
                         log.info("Delete file {} from ftp.", ftpFile.getName());
+                        plateRecognitionService.addPlateNumberToDataBase(plateRecognition);
+                        log.info("Add plate number {} to data base", plateRecognition.getPlateNumber());
                     } else {
                         log.error("Fail delete file {} from ftp", ftpFile.getName());
                     }
                 } else {
-                    log.info("Check ftp. There are no correct files on the ftp server");
+                    log.debug("Check ftp. There are no correct files on the ftp server");
                     return;
                 }
             }
         } else {
-            log.info("Check ftp. There are no files on the ftp server.");
+            log.debug("Check ftp. There are no files on the ftp server.");
         }
     }
 

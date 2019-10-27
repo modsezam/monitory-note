@@ -41,29 +41,32 @@ public class PersonService {
     }
 
     public boolean checkIsEveryoneFromCompanyHasValidEntry(Long companyId) {
-        Optional<Company> companyOptional = companyRepository.findById(companyId);
-        if (companyOptional.isPresent()) {
-            List<Person> personList = personRepository.findByCompany(companyOptional.get());
-            for (Person person : personList) {
-                Optional<NotyficPerson> currentNotification = findCurrentNotification(person.getNotyfics());
-                if (currentNotification.isPresent()) {
-                    boolean approved = currentNotification.get().isApproved();
-                    if (!approved) {
+        if (companyId != null) {
+            Optional<Company> companyOptional = companyRepository.findById(companyId);
+            if (companyOptional.isPresent()) {
+                List<Person> personList = personRepository.findByCompany(companyOptional.get());
+                for (Person person : personList) {
+                    Optional<NotyficPerson> currentNotification = findCurrentNotification(person.getNotyfics());
+                    if (currentNotification.isPresent()) {
+                        boolean approved = currentNotification.get().isApproved();
+                        if (!approved) {
+                            return false;
+                        }
+                    } else {
                         return false;
                     }
-                } else {
-                    return false;
                 }
             }
+            return true;
         }
-        return true;
+        return false;
     }
 
     private Optional<NotyficPerson> findCurrentNotification(Set<NotyficPerson> notyficPersons) {
         //method to fix - return one result in scope of date but not check is approved
         return notyficPersons.stream()
                 .filter(notyficPerson -> notyficPerson.getStartDateTime().isBefore(LocalDateTime.now())
-                        && notyficPerson.getEndDateTime().isBefore(LocalDateTime.now()))
+                        && notyficPerson.getEndDateTime().isAfter(LocalDateTime.now()))
                 .findFirst();
     }
 }

@@ -44,6 +44,9 @@ public class CarService {
         Optional<Car> optionalCar = findByPlateNr(plateNumber);
         if (optionalCar.isPresent()){
             Set<NotyficCar> notyfics = optionalCar.get().getNotyfics();
+            if (notyfics.size() == 0){
+                return false;
+            }
             for (NotyficCar notyfic : notyfics) {
                 if (notyfic.getStartDateTime().isBefore(LocalDateTime.now())
                         && notyfic.getEndDateTime().isAfter(LocalDateTime.now())

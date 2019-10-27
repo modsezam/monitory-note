@@ -9,15 +9,50 @@
 <th:block th:replace="fragments :: navigator" th:remove="tag"></th:block>
 <div class="container">
 
-    <div class="row col-md-12 py-5 text-center top-distance justify-content-center">
-        <!--<div class="row col-md-12 justify-content-center">-->
-            <!--<h1>Main page</h1>-->
-        <!--</div>-->
-        <div class="row col-md-12 justify-content-center">
-            <h1 sec:authorize="!isAuthenticated()">Hello anonymous</h1>
-            <h1 sec:authorize="isAuthenticated()">Hello <span th:text="${myName}"></span></h1>
-        </div>
+    <div class="row col-md-12 py-5">
+        <h2>List last 10 plate licences:</h2>
     </div>
+
+    <div class="row col-md-12">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Time</th>
+                <th scope="col">Plate number</th>
+                <th scope="col">Company name</th>
+                <th scope="col">car valid</th>
+                <th scope="col">persons valid</th>
+                <th scope="col">details</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="pR : ${plateRecognitions}" th:class="${(pR.getIsCarValid() && pR.getIsAllPersonsValid())} ? 'table-success' : (${pR.getIsCarValid()} ? 'table-warning':'table-danger')">
+                <td th:text="${pR.getId()}"></td>
+                <td th:text="${pR.getPlateReadingTime()}"></td>
+                <td th:text="${pR.getPlateNumber()}"></td>
+                <td th:text="${pR.getCompanyName()}"></td>
+                <td th:text="${pR.getIsCarValid()}"></td>
+                <td th:text="${pR.getIsAllPersonsValid()}"></td>
+                <td>
+                    <a th:href="'/company/details/' + ${pR.getCompanyId()}">
+                        <button type="button" class="btn btn-outline-primary btn-sm"
+                                th:disabled="${pR.getCompanyId() == null}">Details</button>
+                    </a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+<!--    <div class="row col-md-12 py-5 text-center top-distance justify-content-center">-->
+<!--        &lt;!&ndash;<div class="row col-md-12 justify-content-center">&ndash;&gt;-->
+<!--        &lt;!&ndash;<h1>Main page</h1>&ndash;&gt;-->
+<!--        &lt;!&ndash;</div>&ndash;&gt;-->
+<!--        <div class="row col-md-12 justify-content-center">-->
+<!--            <h1 sec:authorize="!isAuthenticated()">Hello anonymous</h1>-->
+<!--            <h1 sec:authorize="isAuthenticated()">Hello <span th:text="${myName}"></span></h1>-->
+<!--        </div>-->
+<!--    </div>-->
 
 </div>
 

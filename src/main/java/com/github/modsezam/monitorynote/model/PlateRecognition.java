@@ -5,10 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Formula;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
@@ -27,11 +24,17 @@ public class PlateRecognition {
 
     private LocalDateTime plateReadingTime;
 
-    @Formula("select C.id as company_id from (select * from car where registration_nr=plate_number) P join company C on P.id=C.id")
+    @Formula("(select car.company_id from car where car.registration_nr=plate_number)")
     private Long companyId;
 
-    @Formula("select C.name from (select * from car where registration_nr=plate_number) P join company C on P.company_id=C.id")
+    @Transient
     private String companyName;
+
+    @Transient
+    private Boolean isCarValid;
+
+    @Transient
+    private Boolean isAllPersonsValid;
 
     public PlateRecognition(String fileName, String plateNumber, LocalDateTime plateReadingTime) {
         this.fileName = fileName;
