@@ -1,6 +1,5 @@
 package com.github.modsezam.monitorynote.service;
 
-
 import com.github.modsezam.monitorynote.model.Person;
 import com.github.modsezam.monitorynote.repository.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,12 +12,8 @@ import java.util.Optional;
 @Service
 public class PersonService {
 
-    private PersonRepository personRepository;
-
     @Autowired
-    public PersonService(PersonRepository personRepository) {
-        this.personRepository = personRepository;
-    }
+    private PersonRepository personRepository;
 
     public Long save(Person person) {
         return personRepository.save(person).getId();
@@ -32,7 +27,6 @@ public class PersonService {
             throw new EntityNotFoundException("preson, id: " + id);
         }
     }
-
 
     public List<Person> searchByNameAndLastname (String input) {
         return personRepository.findAllByFirstnameIsLikeOrLastnameIsLike(input, input);

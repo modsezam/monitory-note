@@ -15,12 +15,8 @@ import java.util.Optional;
 @Service
 public class CarService {
 
-    private CarRepository carRepository;
-
     @Autowired
-    public CarService(CarRepository carRepository) {
-        this.carRepository = carRepository;
-    }
+    private CarRepository carRepository;
 
     public Long save(Car car) {
         return carRepository.save(car).getId();

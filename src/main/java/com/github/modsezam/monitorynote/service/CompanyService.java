@@ -15,12 +15,8 @@ import java.util.Optional;
 @Service
 public class CompanyService {
 
-    private CompanyRepository companyRepository;
-
     @Autowired
-    public CompanyService(CompanyRepository companyRepository) {
-        this.companyRepository = companyRepository;
-    }
+    private CompanyRepository companyRepository;
 
     public Long save(Company company) {
         return companyRepository.save(company).getId();

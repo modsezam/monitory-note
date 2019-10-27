@@ -14,12 +14,8 @@ import java.util.Optional;
 @Service
 public class NotyficCarService {
 
-    private NotyficCarRepository notyficCarRepository;
-
     @Autowired
-    public NotyficCarService(NotyficCarRepository notyficCarRepository) {
-        this.notyficCarRepository = notyficCarRepository;
-    }
+    private NotyficCarRepository notyficCarRepository;
 
     public Long save(NotyficCar notyficCar) {
         return notyficCarRepository.save(notyficCar).getId();
