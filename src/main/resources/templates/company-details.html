@@ -54,7 +54,7 @@
                 <th>End date</th>
                 <th>Approved</th>
                 <th>Edit</th>
-                <!--<th>Set</th>-->
+                <th sec:authorize="hasRole('MANAGER')">Set</th>
             </tr>
             </thead>
             <tbody>
@@ -63,10 +63,10 @@
                 <tr th:each="notify : ${person.getNotyfics()}">
                     <td th:text="${notify.id}"></td>
                     <td th:text="${notify.person.firstname} +' '+${notify.person.lastname}"></td>
-                    <td th:text="${notify.dateTimeCreated}"></td>
-                    <td th:text="${notify.startDateTime}"></td>
-                    <td th:text="${notify.endDateTime}"></td>
-                    <td th:text="${notify.isApproved()}"></td>
+                    <td th:text="${#temporals.format(notify.dateTimeCreated, 'yyyy-MM-dd HH:mm')}"></td>
+                    <td th:text="${#temporals.format(notify.startDateTime, 'yyyy-MM-dd HH:mm')}"></td>
+                    <td th:text="${#temporals.format(notify.endDateTime, 'yyyy-MM-dd HH:mm')}"></td>
+                    <td th:text="${notify.isAccepted()}"></td>
                     <td>
                         <a th:href="'/notyficPerson/edit/' + ${notify.id}">
                             <button type="button" class="btn btn-outline-primary btn-sm">Edit</button>
@@ -74,7 +74,7 @@
                     </td>
                     <td>
                         <a th:href="'/notyficPerson/approve/' + ${notify.id}">
-                            <button type="button" th:disabled="${notify.isApproved()}" sec:authorize="hasRole('MANAGER')"
+                            <button type="button" th:disabled="${notify.isAccepted()}" sec:authorize="hasRole('MANAGER')"
                                     class="btn btn-outline-primary btn-sm">Approve
                             </button>
                         </a>
@@ -101,7 +101,7 @@
                 <th>End date</th>
                 <th>Approved</th>
                 <th>Edit</th>
-                <!--<th>Set</th>-->
+                <th sec:authorize="hasRole('MANAGER')">Set</th>
             </tr>
             </thead>
             <tbody>
@@ -110,10 +110,10 @@
                 <tr th:each="notify : ${car.getNotyfics()}">
                     <td th:text="${notify.id}"></td>
                     <td th:text="${notify.car.registrationNr}"></td>
-                    <td th:text="${notify.dateTimeCreated}"></td>
-                    <td th:text="${notify.startDateTime}"></td>
-                    <td th:text="${notify.endDateTime}"></td>
-                    <td th:text="${notify.isApproved()}"></td>
+                    <td th:text="${#temporals.format(notify.dateTimeCreated, 'yyyy-MM-dd HH:mm')}"></td>
+                    <td th:text="${#temporals.format(notify.startDateTime, 'yyyy-MM-dd HH:mm')}"></td>
+                    <td th:text="${#temporals.format(notify.endDateTime, 'yyyy-MM-dd HH:mm')}"></td>
+                    <td th:text="${notify.isAccepted()}"></td>
                     <td>
                         <a th:href="'/notyficCar/edit/' + ${notify.id}">
                             <button type="button" class="btn btn-outline-primary btn-sm">Edit</button>
@@ -121,7 +121,7 @@
                     </td>
                     <td>
                         <a th:href="'/notyficCar/approve/' + ${notify.id}">
-                            <button type="button" th:disabled="${notify.isApproved()}" sec:authorize="hasRole('MANAGER')"
+                            <button type="button" th:disabled="${notify.isAccepted()}" sec:authorize="hasRole('MANAGER')"
                                     class="btn btn-outline-primary btn-sm">Approve
                             </button>
                         </a>
@@ -150,7 +150,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="person : ${company.getPersons()}" th:class="${personsSearched.contains(person) ? 'founded' : ''}">
+            <tr th:each="person : ${company.getPersons()}" th:class="${personsSearched.contains(person) ? 'table-warning' : ''}">
                 <td th:text="${person.id}"></td>
                 <td th:text="${person.firstname}"></td>
                 <td th:text="${person.lastname}"></td>
@@ -198,7 +198,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="car : ${company.getCars()}" th:class="${carsSearched.contains(car) ? 'founded' : ''}">
+            <tr th:each="car : ${company.getCars()}" th:class="${carsSearched.contains(car) ? 'table-warning' : ''}">
                 <td th:text="${car.id}" ></td>
                 <td th:text="${car.mark}"></td>
                 <td th:text="${car.model}"></td>

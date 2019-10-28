@@ -1,6 +1,5 @@
 package com.github.modsezam.monitorynote.controller;
 
-import com.github.modsezam.monitorynote.model.NotyficCar;
 import com.github.modsezam.monitorynote.model.NotyficPerson;
 import com.github.modsezam.monitorynote.model.Person;
 import com.github.modsezam.monitorynote.service.NotyficPersonService;
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Controller
@@ -50,7 +48,7 @@ public class NotyficPersonController {
         if (notifyCollides(notyficPerson)) {
             return formError(model, notyficPerson, "This person is already notified during this time.");
         }
-        notyficPerson.setApproved(false);
+        notyficPerson.setAccepted(false);
         notyficPersonService.save(notyficPerson);
         return "redirect:/company/details/"+notyficPerson.getPerson().getCompany().getId();
     }
@@ -70,7 +68,7 @@ public class NotyficPersonController {
     @GetMapping ("/approve/{id}")
     public String approveNotify (@PathVariable (name = "id") Long id) {
        NotyficPerson notyficPerson = notyficPersonService.getById(id);
-        notyficPerson.setApproved(true);
+        notyficPerson.setAccepted(true);
         notyficPersonService.save(notyficPerson);
         return "redirect:/company/details/"+notyficPerson.getPerson().getCompany().getId();
     }

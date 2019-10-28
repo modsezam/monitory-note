@@ -44,6 +44,7 @@ public class DataInitializer implements ApplicationListener<ContextRefreshedEven
         addUser("admin", defaultAdminPassword, "USER", "ADMIN");
         addUser("user", "user", "USER");
         addUser("manager", "manager", "MANAGER");
+        addUser("security", "security", "SECURITY");
 
         Company company1 = new Company (null, "Coca-cola", "coca-cola street", "Chicago", "11-200", "USA", null, null);
         Company company2 = new Company (null, "Amazon", "amazon street", "New York", "55-888", "England", null, null);

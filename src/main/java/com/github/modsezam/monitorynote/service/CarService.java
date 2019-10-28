@@ -50,7 +50,7 @@ public class CarService {
             for (NotyficCar notyfic : notyfics) {
                 if (notyfic.getStartDateTime().isBefore(LocalDateTime.now())
                         && notyfic.getEndDateTime().isAfter(LocalDateTime.now())
-                        && notyfic.isApproved()){
+                        && notyfic.isAccepted()){
                 } else {
                     return false;
                 }
@@ -61,7 +61,9 @@ public class CarService {
         return true;
     }
 
-
+    public List<Car> findAll () {
+        return carRepository.findAll();
+    }
 
 
 }

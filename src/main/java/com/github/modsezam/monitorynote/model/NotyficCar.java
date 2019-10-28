@@ -29,5 +29,5 @@ public class NotyficCar {
     @ManyToOne (fetch = FetchType.EAGER)
     private Car car;
 
-    private boolean isApproved;
+    private boolean accepted;
 }

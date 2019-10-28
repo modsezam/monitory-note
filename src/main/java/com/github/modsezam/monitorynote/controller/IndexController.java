@@ -1,8 +1,12 @@
 package com.github.modsezam.monitorynote.controller;
 
+import com.github.modsezam.monitorynote.model.NotyficCar;
+import com.github.modsezam.monitorynote.model.NotyficPerson;
 import com.github.modsezam.monitorynote.model.PlateRecognition;
 import com.github.modsezam.monitorynote.model.dto.UserRegistrationRequest;
 import com.github.modsezam.monitorynote.service.AccountService;
+import com.github.modsezam.monitorynote.service.NotyficCarService;
+import com.github.modsezam.monitorynote.service.NotyficPersonService;
 import com.github.modsezam.monitorynote.service.PlateRecognitionService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,21 +20,34 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
 import java.security.Principal;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Slf4j
 @Controller
 @RequestMapping(path = "/")
 public class IndexController {
 
-    @Autowired
     private AccountService accountService;
+    private NotyficCarService notyficCarService;
+    private NotyficPersonService notyficPersonService;
+    private PlateRecognitionService plateRecognitionService;
 
     @Autowired
-    private PlateRecognitionService plateRecognitionService;
+    public IndexController(AccountService accountService, NotyficCarService notyficCarService, NotyficPersonService notyficPersonService, PlateRecognitionService plateRecognitionService) {
+        this.accountService = accountService;
+        this.notyficCarService = notyficCarService;
+        this.notyficPersonService = notyficPersonService;
+        this.plateRecognitionService = plateRecognitionService;
+    }
 
     @GetMapping("/")
     public String getIndexPage(Model model, Principal principal) {
+        List<NotyficCar> carNotyficsToApprove = new ArrayList<>();
+        List<NotyficPerson> personNotyficsToApprove = new ArrayList<>();
+
         if (principal != null) {
 
             List<PlateRecognition> plateRecognitions = plateRecognitionService.listTop10PlateRecognitionOrderByIdDesc();
@@ -39,7 +56,17 @@ public class IndexController {
 
             model.addAttribute("myName", principal.getName());
             model.addAttribute("plateRecognitions", plateRecognitions);
+
+            boolean accountIsManager = accountService.getRolesByUsername(principal.getName()).stream().anyMatch(accountRole -> accountRole.getName().equals("MANAGER"));
+            if (accountIsManager) {
+                carNotyficsToApprove = notyficCarService.getCarNotyficationsToApprove();
+                personNotyficsToApprove = notyficPersonService.getPersonNotyficationsToApprove();
+            }
+
         }
+        model.addAttribute("carNotyficsToApprove", carNotyficsToApprove);
+        model.addAttribute("personNotyficsToApprove", personNotyficsToApprove);
+
         return "index";
     }
 

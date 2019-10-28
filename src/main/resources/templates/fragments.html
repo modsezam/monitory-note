@@ -6,6 +6,7 @@
     <th:block th:fragment="styleLinks">
         <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}">
         <link rel="stylesheet" th:href="@{/css/styles.css}">
+
     </th:block>
 </head>
 <body>
@@ -28,6 +29,9 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/company/list}">Companies</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" sec:authorize="hasRole('SECURITY')" th:href="@{/security/main}">Security</a>
                     </li>
                 </ul>
 

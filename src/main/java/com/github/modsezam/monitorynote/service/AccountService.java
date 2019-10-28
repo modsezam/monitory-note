@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 
@@ -114,6 +115,15 @@ public class AccountService {
             account.setPassword(passwordEncoder.encode(request.getPassword()));
 
             accountRepository.save(account);
+        }
+    }
+
+    public Set<AccountRole> getRolesByUsername (String username) {
+        Optional<Account> optionalAccount = accountRepository.findByUsername(username);
+        if (optionalAccount.isPresent()) {
+            return optionalAccount.get().getRoles();
+        } else {
+            throw new EntityNotFoundException("username, " + username);
         }
     }
 }

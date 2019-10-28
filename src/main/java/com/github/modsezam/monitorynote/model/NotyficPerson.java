@@ -37,5 +37,5 @@ public class NotyficPerson {
     @ManyToOne (fetch = FetchType.EAGER)
     private Person person;
 
-    private boolean isApproved;
+    private boolean accepted;
 }

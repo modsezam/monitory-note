@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Controller
@@ -50,7 +49,7 @@ public class NotyficCarController {
         if (notifyCollides(notyficCar)) {
             return formError(model, notyficCar, "This car is already notified during this time.");
         }
-        notyficCar.setApproved(false);
+        notyficCar.setAccepted(false);
         notyficCarService.save(notyficCar);
         return "redirect:/company/details/"+notyficCar.getCar().getCompany().getId();
     }
@@ -69,7 +68,7 @@ public class NotyficCarController {
     @GetMapping ("/approve/{id}")
     public String approveNotify (@PathVariable (name = "id") Long id) {
         NotyficCar notyficCar = notyficCarService.getById(id);
-        notyficCar.setApproved(true);
+        notyficCar.setAccepted(true);
         notyficCarService.save(notyficCar);
         return "redirect:/company/details/"+notyficCar.getCar().getCompany().getId();
     }

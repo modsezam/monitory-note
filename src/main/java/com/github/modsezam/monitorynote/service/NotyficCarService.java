@@ -9,7 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class NotyficCarService {
@@ -31,4 +33,10 @@ public class NotyficCarService {
     }
 
 
+    public List<NotyficCar> getCarNotyficationsToApprove() {
+        return notyficCarRepository.findAllByAcceptedIsFalse();
+    }
+    public List<NotyficCar> getApprovedCarNotyfications() {
+        return notyficCarRepository.findAllByAcceptedIsTrue();
+    }
 }

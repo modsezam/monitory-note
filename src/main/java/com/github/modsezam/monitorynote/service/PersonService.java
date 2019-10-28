@@ -48,7 +48,7 @@ public class PersonService {
                 for (Person person : personList) {
                     Optional<NotyficPerson> currentNotification = findCurrentNotification(person.getNotyfics());
                     if (currentNotification.isPresent()) {
-                        boolean approved = currentNotification.get().isApproved();
+                        boolean approved = currentNotification.get().isAccepted();
                         if (!approved) {
                             return false;
                         }
@@ -68,5 +68,10 @@ public class PersonService {
                 .filter(notyficPerson -> notyficPerson.getStartDateTime().isBefore(LocalDateTime.now())
                         && notyficPerson.getEndDateTime().isAfter(LocalDateTime.now()))
                 .findFirst();
+    }
+
+    public List<Person> findAll() {
+        return personRepository.findAll();
+
     }
 }
