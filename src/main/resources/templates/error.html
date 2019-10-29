@@ -9,13 +9,14 @@
 <th:block th:replace="fragments :: navigator" th:remove="tag"></th:block>
 <div class="container">
 
-
-    <h1>Sorry, but this is error page.</h1>
+<div th:class="justify-content-center">
+    <h1>Shit, this is error page.</h1>
+    <h1>We are working on it.</h1>
 
     <th:block th:if="${errorMessage != null}">
         <h2 th:text="${errorMessage}"></h2>
     </th:block>
-
+</div>
 
 </div>
 <th:block th:replace="fragments :: footer" th:remove="tag"></th:block>
