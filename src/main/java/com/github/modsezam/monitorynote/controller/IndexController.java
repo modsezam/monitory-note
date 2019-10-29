@@ -50,12 +50,12 @@ public class IndexController {
 
         if (principal != null) {
 
-            List<PlateRecognition> plateRecognitions = plateRecognitionService.listTop10PlateRecognitionOrderByIdDesc();
+//            List<PlateRecognition> plateRecognitions = plateRecognitionService.listTop10PlateRecognitionOrderByIdDesc();
 
-            plateRecognitionService.fillingCompanyNameAndCarAndPersonsIsValid(plateRecognitions);
+//            plateRecognitionService.fillingCompanyNameAndCarAndPersonsIsValid(plateRecognitions);
 
             model.addAttribute("myName", principal.getName());
-            model.addAttribute("plateRecognitions", plateRecognitions);
+//            model.addAttribute("plateRecognitions", plateRecognitions);
 
             boolean accountIsManager = accountService.getRolesByUsername(principal.getName()).stream().anyMatch(accountRole -> accountRole.getName().equals("MANAGER"));
             if (accountIsManager) {
